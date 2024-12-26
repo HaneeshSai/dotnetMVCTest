@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ExamManagement.Models.MatchedStudentViewModel>
+@{
+    ViewBag.Title = "Students Applied";
+    Layout = "~/Views/Shared/Adminsidebar.cshtml"; // Include layout if required
+}
+<!-- Internal CSS for Table Styling -->
+<style>
+    /* Styling the table */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
+
+        /* Table header with purple background and white text */
+        .custom-table th {
+            background-color: purple;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Table data cells with padding */
+        .custom-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Alternate row colors */
+        .custom-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hover effect for table rows */
+        .custom-table tr:hover {
+            background-color: #ddd;
+        }
+</style>
+
+<!-- Table HTML -->
+<br />
+<br />
+<br />
+@using (Html.BeginForm("Index", "Applied", FormMethod.Get))
+{
+    <input type="text" name="searchId" class="search-input" placeholder="Enter StudentID" />
+    <button type="submit" class="search-button">
+        <i class="fa fa-search search-icon"></i>
+    </button>
+}
+<br />
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Full Name</th>
+            <th>Exam ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Studentid</td>
+                <td>@item.Fullname</td>
+                <td>@item.Examid</td>
+            </tr>
+        }
+    </tbody>
+</table>

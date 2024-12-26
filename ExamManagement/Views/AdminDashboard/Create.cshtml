@@ -1,0 +1,148 @@
+﻿@model ExamManagement.Models.Exam
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Adminsidebar.cshtml";
+}
+
+<h2 style="color:transparent">Create Exam</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <style>
+        /* General button styling */
+        .btnscs {
+            background-color: rebeccapurple;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btnscs:hover {
+            background-color: darkslateblue;
+        }
+
+        /* Centering the form */
+        .centered-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full height */
+            background-color: #f0f0f0;
+        }
+
+        /* Form container styling */
+        .centered-form {
+            width: 50%;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form fields styling */
+        .form-group {
+            margin-bottom: 20px;
+            margin-left:25%;
+        }
+
+        label {
+            font-weight: bold;
+            color: rebeccapurple;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Uniform input fields */
+        .form-control,
+        input[type="submit"] {
+            height: 45px; /* Ensuring same height */
+            box-sizing: border-box;
+        }
+
+        /* Styling the "Back" link */
+        .back-link {
+            margin-bottom: 20px;
+        }
+
+        .back-link a {
+            color: rebeccapurple;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Centering the submit button */
+        .submit-btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+       
+    </style>
+
+    <div class="back-link">
+        @Html.ActionLink("Back", "Examget", "AdminDashboard")
+    </div>
+
+    <div class="centered-form-container">
+        <div class="form-horizontal centered-form">
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Exam ID Field -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Examid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Examid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Examid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.courseid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.courseid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.courseid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <!-- Exam Date Field -->
+            <div class="form-group">
+                <label class="control-label col-md-2">Created Date</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Examdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.Examdate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Duration Field -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <br />
+
+            <!-- Submit Button -->
+            <div class="form-group submit-btn-container" style=" margin-left: -155px;">
+                <input type="submit" value="Create" class="btn btnscs" />
+            </div>
+        </div>
+    </div>
+}

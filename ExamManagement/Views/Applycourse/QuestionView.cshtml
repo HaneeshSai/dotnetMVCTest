@@ -1,0 +1,116 @@
+﻿@model ExamManagement.Models.Question
+@{
+    ViewBag.Title = "Exam Question";
+    Layout = "~/Views/Shared/StudentSidebar.cshtml"; // Use the same layout for consistency
+}
+<br />
+<br />
+<br />
+<style>
+    /* Centering the main container */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-q {
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.3);
+        border: 1px solid #ddd;
+    }
+
+    h2 {
+        color: #5e3360; /* Purple color for the question text */
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Radio Button Styles */
+    input[type="radio"] {
+        display: none; /* Hide the default radio button */
+    }
+
+    label {
+        font-size: 18px;
+        color: #333;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        label:hover {
+            background-color: #f4f4f4;
+        }
+
+    input[type="radio"]:checked + label {
+        background-color: purple;
+        color: white;
+        box-shadow: 0 0 15px rgba(94, 51, 96, 0.7);
+    }
+
+    /* Button Styles */
+    button {
+        background-color: purple;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: box-shadow 0.3s ease;
+    }
+
+        button:hover {
+            box-shadow: 0 0 15px purple;
+        }
+
+    /* Alignment for buttons */
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container-q">
+    <h2>@Model.QuestionText</h2>
+
+    <form action="@Url.Action("SubmitAnswer", "Applycourse")" method="post">
+        <input type="hidden" name="QuestionID" value="@Model.QuestionID" />
+        <input type="hidden" name="ExamID" value="@Session["ExamID"]" />
+
+        <div>
+            <input type="radio" id="optionA" name="SelectedAnswer" value="@Model.OptionA" />
+            <label for="optionA">@Model.OptionA</label>
+        </div>
+        <div>
+            <input type="radio" id="optionB" name="SelectedAnswer" value="@Model.OptionB" />
+            <label for="optionB">@Model.OptionB</label>
+        </div>
+        <div>
+            <input type="radio" id="optionC" name="SelectedAnswer" value="@Model.OptionC" />
+            <label for="optionC">@Model.OptionC</label>
+        </div>
+        <div>
+            <input type="radio" id="optionD" name="SelectedAnswer" value="@Model.OptionD" />
+            <label for="optionD">@Model.OptionD</label>
+        </div>
+
+        <!-- Button section -->
+        <div class="button-container">
+            <button type="submit" name="direction" value="prev">Previous</button>
+            <button type="submit" name="direction" value="next">Next</button>
+        </div>
+    </form>
+</div>

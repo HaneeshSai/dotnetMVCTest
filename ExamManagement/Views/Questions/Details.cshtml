@@ -1,0 +1,90 @@
+﻿@model ExamManagement.Models.Question
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Question</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Examid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Examid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Courseid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Courseid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.QuestionText)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.QuestionText)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OptionA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OptionA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OptionB)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OptionB)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OptionC)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OptionC)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OptionD)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OptionD)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CorrectOption)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CorrectOption)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.QuestionID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

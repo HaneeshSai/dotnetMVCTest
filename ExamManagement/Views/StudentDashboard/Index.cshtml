@@ -1,0 +1,53 @@
+﻿
+@{
+    var studentname = Session["Studentname"];
+    ViewBag.Title = "Student Dashboard";
+    Layout = "~/Views/Shared/StudentSidebar.cshtml"; // Use the same layout for consistency
+
+}
+<br />
+<br />
+<br />
+<style>
+    .container1 {
+        padding: 20px;
+        /* width: 500px; */
+        position: relative;
+        /* left: 50%; */
+        /* top: 50%; */
+        /* transform: translate(-50%, -50%); */
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+        min-height: 800px;
+    }
+</style>
+<div class="container1 mt-4">
+
+    <h2>Hi @studentname</h2>
+    <div class="row">
+        <!-- Total Students Card -->
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Available Courses</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalExams</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Exams Card -->
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Exam Applied</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalStudents</h5>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+

@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Nav";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            background:url("../../Image/1000_F_217703398_PTfIXaDJ4uSWBbNGwegdsGHhRdYRwBzC.jpg");
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+        .gif-overlay {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 30%;
+            height: 30%;
+            background: url('../../Image//animated-welcome-image-0112.gif') right bottom no-repeat;
+            background-size: contain; /* Adjust the size of the GIF */
+            pointer-events: none; /* Allows interactions with buttons through the GIF */
+            z-index: 1;
+        }
+       html {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            padding-top: 175px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .row-container {
+            display: flex;
+            justify-content: space-around;
+            width: 50%;
+        }
+
+        .col-custom {
+            flex: 0 0 40%;
+            max-width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom {
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            color: black;
+            background-color: white;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight:bold;
+        }
+
+            .btn-custom:hover {
+                box-shadow: 0 0 10px rebeccapurple, 0 0 20px white;
+                transform: scale(1.05);
+            }
+
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2>Exam Management System</h2>
+    </header>
+    <div class="gif-overlay"></div>
+    <div class="content">
+        <div class="row-container">
+            <div class="col-custom">
+                <a href="@Url.Action("Login", "Login")" class="btn btn-custom">Admin</a>
+            </div>
+            <div class="col-custom">
+                <a href="@Url.Action("StudentLogin", "Login")" class="btn btn-custom">Student</a>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

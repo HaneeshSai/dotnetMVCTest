@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Admindash";
+    Layout = "~/Views/Shared/Adminsidebar.cshtml";
+}
+
+<h2 style="color:transparent">Admindash</h2>
+<style>
+    .container1 {
+        padding: 20px;
+        /* width: 500px; */
+        position: relative;
+        /* left: 50%; */
+        /* top: 50%; */
+        /* transform: translate(-50%, -50%); */
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+        min-height: 800px;
+    }
+</style>
+<div class="container1 mt-4">
+    <h2>Hi Admin..!</h2>
+    <div class="row">
+        <!-- Total Students Card -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Total Students</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalStudents</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Exams Card -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Exams</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalExams</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Courses Card -->
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Total Courses</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalCourses</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

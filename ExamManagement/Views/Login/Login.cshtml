@@ -1,0 +1,191 @@
+﻿@model ExamManagement.Models.Adminlogin
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Login</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css") <!-- Include your existing styles -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Montserrat, Arial, Helvetica, sans-serif;
+            background-image: url("../../Image/empty-classroom-due-coronavirus-pandemic.jpg"); /* Background image */
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            padding: 20px;
+            width: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5); /* Set background with opacity */
+            box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+            text-align: center; /* Center content inside the container */
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px; /* Adjusted margin for better spacing */
+            text-align: left; /* Align text to the left */
+        }
+
+        .form-control {
+            background: #f7f7f7;
+        }
+
+        button {
+            background-color: #0eb7f4; /* Button background color */
+            color: white; /* Button text color */
+            padding: 14px 20px; /* Padding inside button */
+            margin: 8px 0; /* Margin around button */
+            border: none; /* Remove border */
+            cursor: pointer; /* Pointer on hover */
+            width: 100%; /* Full width */
+            opacity: 0.9; /* Initial opacity */
+            font-size: 16px; /* Font size */
+            font-family: Montserrat, Arial, Helvetica, sans-serif; /* Font family */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+            button:hover {
+                opacity: 1; /* Full opacity on hover */
+            }
+
+        .text-danger {
+            margin-top: 5px; /* Space above error messages */
+        }
+
+        .user-icon {
+            color: white; /* Icon color */
+            background-color: rebeccapurple; /* Background color for icon */
+            border-radius: 50%; /* Round icon */
+            padding: 20px; /* Padding around icon */
+            margin-bottom: 20px; /* Space below icon */
+            display: inline-block; /* Align icon inline */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Space between form groups */
+        }
+            #messageBox {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 128, 0, 0.8); /* Green background with transparency */
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 1000; /* Ensure the message box is on top */
+        font-size: 20px;
+        display: none; /* Initially hidden */
+    }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div style="text-align:center">
+                <!-- Colored User Icon -->
+                <i class="fas fa-user user-icon" style="font-size: 48px;"></i>
+                <h1 style="font-weight:600">Admin Login</h1>
+            </div>
+            <br />
+            <div style="text-align:center">
+                <div class="form-group row " style="text-align:center">
+                    @Html.LabelFor(model => model.AdminId, "AdminId", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.AdminId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter AdminID" } })
+                        @Html.ValidationMessageFor(model => model.AdminId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Password", type = "password", id = "passwordInput" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <input type="checkbox" onclick="myFunction()"> Show Password
+            <br />
+            <div class="clearfix">
+                <button type="submit" class="btn" style="background-color: rebeccapurple; width: 20%; color: white;">Login</button>
+            </div>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <script>
+        function myFunction() {
+            var x = document.getElementById("passwordInput");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div id="messageBox">@TempData["SuccessMessage"]</div>
+        <script>
+        window.onload = function() {
+            var messageBox = document.getElementById("messageBox");
+            if (messageBox) {
+                messageBox.style.display = "block"; // Show the message box
+
+                setTimeout(function() {
+                    window.location.href = '@Url.Action("Admindash", "AdminDashboard")'; // Redirect after 2 seconds
+                }, 2000);
+            }
+        };
+        </script>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div id="messageBox">@TempData["ErrorMessage"]</div>
+        <script>
+            window.onload = function () {
+                var messageBox = document.getElementById("messageBox");
+                if (messageBox) {
+                    messageBox.style.display = "block"; // Show the message box
+
+                    setTimeout(function () {
+                        messageBox.style.display = "none"; // Hide error message after 2 seconds
+                    }, 2000);
+                }
+            };
+        </script>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

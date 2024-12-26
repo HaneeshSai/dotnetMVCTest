@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: none;
+            color: purple;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .logout-btn:hover {
+                color: darkred;
+            }
+
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            padding-top: 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            border-bottom-right-radius: 25px;
+            border-top-right-radius: 25px;
+            font-weight: bold;
+        }
+
+            .sidebar img {
+                max-width: 60%;
+                height: auto;
+                margin-bottom: 19px;
+                margin-left: 40px;
+                margin-top: -20px;
+            }
+
+            .sidebar a.nav-link {
+                display: flex;
+                align-items: center;
+                color: black;
+                padding: 15px;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+                .sidebar a.nav-link i {
+                    margin-right: 10px;
+                }
+
+                .sidebar a.nav-link:hover {
+                    background-color: purple;
+                    color: white !important;
+                    border-radius: 7px;
+                }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            height: 60px;
+            background-color: transparent;
+            color: purple;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            z-index: 101;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .active {
+            background-color: purple;
+            color: white !important;
+            border-radius: 7px;
+        }
+
+        footer {
+            margin-top: 50px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="container">
+            <!-- Replace this with your image source -->
+            <img src="~/Image/03_01_INTELLIGENT-EXAM-MANAGEMENT-SYSTEM-284x300.png" alt="Logo" />
+            <ul class="navbar-nav flex-grow-1">
+                <li><a href="@Url.Action("Admindash", "Admindashboard")" class="nav-link @((ViewBag.Title == "Admindash") ? "active" : "")"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="@Url.Action("Index", "Course")" class="nav-link @((ViewBag.Title == "Course Management") ? "active" : "")"><i class="fas fa-book"></i> Course Manage</a></li>
+                <li><a href="@Url.Action("Examget", "Admindashboard")" class="nav-link @((ViewBag.Title == "Exam Management") ? "active" : "")"><i class="fas fa-clipboard"></i> Exam Manage</a></li>
+                <li><a href="@Url.Action("Index", "Questions")" class="nav-link @((ViewBag.Title == "Question Management") ? "active" : "")"><i class="fas fa-question-circle"></i> Question Manage</a></li>
+                <li><a href="@Url.Action("Index", "Applied")" class="nav-link @((ViewBag.Title == "Students Applied") ? "active" : "")"><i class="fas fa-file-alt"></i> Exam Applied</a></li>
+                <li><a href="@Url.Action("Overallmark", "Adminmarklist")" class="nav-link @((ViewBag.Title == "Overallmark") ? "active" : "")"><i class="fas fa-chart-bar"></i> Students Marks</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="header">
+        <h1>@ViewBag.Title</h1>
+        <form action="@Url.Action("Login", "Login")" method="post" style="display:inline;">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="logout-btn" title="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </form>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1139649afc64b82b976d01d52698b72" Name="Diagram1">
+        <EntityTypeShape EntityType="ExammanagefinalModel.Adminlogin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.Cours" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.Exam" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.Question" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.StudentAnswer" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.Studentdetail" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.StudentExamApplication" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExammanagefinalModel.StudentMark" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__Exams__courseid__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__Questions__Exami__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentAn__Exami__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentEx__Exami__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentMa__Exami__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentAn__Quest__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentAn__stude__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentEx__stude__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="ExammanagefinalModel.FK__StudentMa__stude__5EBF139D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

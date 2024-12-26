@@ -1,0 +1,177 @@
+﻿@model ExamManagement.Models.Studentdetail
+
+@{
+    ViewBag.Title = "Edit Details";
+    Layout = "~/Views/Shared/StudentSidebar.cshtml"; // Use the same layout for consistency
+}
+
+<!-- Internal CSS -->
+<style>
+    /* Center the container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Back button style */
+    .btn-back {
+        background-color: #6A1B9A;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+        .btn-back:hover {
+            background-color: #4A148C; /* Darker purple on hover */
+        }
+
+    /* Title styling */
+    h2 {
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    /* Style for form fields */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Style for labels */
+    .control-label {
+        font-weight: bold;
+    }
+
+    /* Style for the Save button */
+    .btn-save {
+        background-color: #6A1B9A;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-save:hover {
+            background-color: #4A148C; /* Darker purple on hover */
+        }
+
+    /* Adjust row layout */
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .col-md-6 {
+        flex: 0 0 48%; /* Two columns per row */
+    }
+
+    /* Validation message style */
+    .text-danger {
+        color: red;
+    }
+
+    /* Back to list link */
+    .btn-default {
+        color: #6A1B9A;
+        text-decoration: none;
+        font-weight: bold;
+        border: 1px solid #6A1B9A;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+        .btn-default:hover {
+            background-color: #6A1B9A;
+            color: white;
+        }
+</style>
+<br />
+<br />
+<div  style="margin-top: 20px;">
+    @Html.ActionLink("Back", "Index", "StudentDashboard", null, new { @class = "btn btn-default" })
+</div>
+<div class="container">
+    <!-- Back Button at Top Left -->
+
+
+    <h2>Edit Details</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.studentid)
+
+            <div class="row">
+                <!-- First row -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Second row -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.location, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.location, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Third row -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="form-group text-center">
+                <input type="submit" value="Save" class="btn-save" />
+            </div>
+        </div>
+    }
+
+
+</div>

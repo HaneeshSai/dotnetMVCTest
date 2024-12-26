@@ -1,0 +1,58 @@
+﻿@{
+    var message = TempData["Message"] as string;
+    var messageType = TempData["MessageType"] as string;
+    string redirectUrl = Url.Action("Admindash", "AdminDashboard");
+    string redirectUrl1 = Url.Action("Login", "Login");
+
+    Layout = "~/Views/Shared/StudentSidebar.cshtml"; // Use the same layout for consistency
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Message</title>
+    <style>
+        .message-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: @(messageType == "success" ? "#4CAF50" : "#f44336"); /* Green for success, Red for error */
+            color: white;
+            padding: 16px;
+            border-radius: 5px;
+            z-index: 9999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <div id="message-box" class="message-box">
+            @message
+        </div>
+    }
+
+<script>
+        // Hide the message after 3 seconds and then conditionally redirect
+        setTimeout(function () {
+            var messageBox = document.getElementById('message-box');
+            if (messageBox) {
+                messageBox.style.opacity = 0; // Fade out the message
+                setTimeout(function () {
+                    // If the message type is success, redirect to Admin Dashboard
+                    if ('@messageType' === "success") {
+                        window.location.href = '@redirectUrl';
+                    } else {
+                        // Stay on the current page (no redirection)
+                        window.location.href = '@redirectUrl1'; // Optionally hide the message box after fade out
+                    }
+                }, 500); // Delay for fade out effect
+            }
+        }, 3000); // Show for 3 seconds
+</script>
+</body>
+</html>

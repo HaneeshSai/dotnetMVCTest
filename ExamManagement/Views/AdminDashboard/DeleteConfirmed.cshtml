@@ -1,0 +1,48 @@
+﻿@model ExamManagement.Models.Exam
+
+@{
+    ViewBag.Title = "DeleteConfirmed";
+}
+
+<h2>DeleteConfirmed</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Exam</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.courseid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Examdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Examdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back", "Examget","AdminDashboard")
+        </div>
+    }
+</div>

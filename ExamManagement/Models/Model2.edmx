@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExammanagefinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adminlogin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="courseid" />
+          </Key>
+          <Property Name="courseid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coursename" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Exams">
+          <Key>
+            <PropertyRef Name="Examid" />
+          </Key>
+          <Property Name="Examid" Type="int" Nullable="false" />
+          <Property Name="courseid" Type="int" />
+          <Property Name="Examdate" Type="date" />
+          <Property Name="Duration" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Examid" Type="int" />
+          <Property Name="Courseid" Type="int" />
+          <Property Name="QuestionText" Type="text" Nullable="false" />
+          <Property Name="OptionA" Type="varchar" MaxLength="255" />
+          <Property Name="OptionB" Type="varchar" MaxLength="255" />
+          <Property Name="OptionC" Type="varchar" MaxLength="255" />
+          <Property Name="OptionD" Type="varchar" MaxLength="255" />
+          <Property Name="CorrectOption" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="StudentAnswers">
+          <Key>
+            <PropertyRef Name="StudentAnswerId" />
+          </Key>
+          <Property Name="StudentAnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentid" Type="int" />
+          <Property Name="QuestionID" Type="int" />
+          <Property Name="SelectedAnswer" Type="char" MaxLength="1" />
+          <Property Name="Examid" Type="int" />
+        </EntityType>
+        <EntityType Name="Studentdetails">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="mobile" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="StudentExamApplications">
+          <Key>
+            <PropertyRef Name="Studentappid" />
+          </Key>
+          <Property Name="Studentappid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Examid" Type="int" />
+          <Property Name="studentid" Type="int" />
+          <Property Name="applieddate" Type="date" />
+          <Property Name="coursename" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StudentMarks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentid" Type="int" />
+          <Property Name="Examid" Type="int" />
+          <Property Name="marks" Type="int" />
+          <Property Name="studentname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Exams__courseid__4F7CD00D">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="courseid" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Exami__628FA481">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__Exami__6754599E">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__Quest__66603565">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__stude__656C112C">
+          <End Role="Studentdetails" Type="Self.Studentdetails" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentEx__Exami__5AEE82B9">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="StudentExamApplications" Type="Self.StudentExamApplications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentExamApplications">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentEx__stude__5BE2A6F2">
+          <End Role="Studentdetails" Type="Self.Studentdetails" Multiplicity="0..1" />
+          <End Role="StudentExamApplications" Type="Self.StudentExamApplications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentExamApplications">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentMa__Exami__5FB337D6">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="StudentMarks" Type="Self.StudentMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentMarks">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentMa__stude__5EBF139D">
+          <End Role="Studentdetails" Type="Self.Studentdetails" Multiplicity="0..1" />
+          <End Role="StudentMarks" Type="Self.StudentMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentMarks">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExammanagefinalModelStoreContainer">
+          <EntitySet Name="Adminlogin" EntityType="Self.Adminlogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exams" EntityType="Self.Exams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAnswers" EntityType="Self.StudentAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Studentdetails" EntityType="Self.Studentdetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentExamApplications" EntityType="Self.StudentExamApplications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentMarks" EntityType="Self.StudentMarks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Exams__courseid__4F7CD00D" Association="Self.FK__Exams__courseid__4F7CD00D">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Exami__628FA481" Association="Self.FK__Questions__Exami__628FA481">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__Exami__6754599E" Association="Self.FK__StudentAn__Exami__6754599E">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__Quest__66603565" Association="Self.FK__StudentAn__Quest__66603565">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__stude__656C112C" Association="Self.FK__StudentAn__stude__656C112C">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentEx__Exami__5AEE82B9" Association="Self.FK__StudentEx__Exami__5AEE82B9">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentExamApplications" EntitySet="StudentExamApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentEx__stude__5BE2A6F2" Association="Self.FK__StudentEx__stude__5BE2A6F2">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentExamApplications" EntitySet="StudentExamApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentMa__Exami__5FB337D6" Association="Self.FK__StudentMa__Exami__5FB337D6">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentMarks" EntitySet="StudentMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentMa__stude__5EBF139D" Association="Self.FK__StudentMa__stude__5EBF139D">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentMarks" EntitySet="StudentMarks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExammanagefinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adminlogin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="courseid" />
+          </Key>
+          <Property Name="courseid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coursename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__courseid__4F7CD00D" FromRole="Courses" ToRole="Exams" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Examid" />
+          </Key>
+          <Property Name="Examid" Type="Int32" Nullable="false" />
+          <Property Name="courseid" Type="Int32" />
+          <Property Name="Examdate" Type="DateTime" Precision="0" />
+          <Property Name="Duration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK__Exams__courseid__4F7CD00D" FromRole="Exams" ToRole="Courses" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Exami__628FA481" FromRole="Exams" ToRole="Questions" />
+          <NavigationProperty Name="StudentAnswers" Relationship="Self.FK__StudentAn__Exami__6754599E" FromRole="Exams" ToRole="StudentAnswers" />
+          <NavigationProperty Name="StudentExamApplications" Relationship="Self.FK__StudentEx__Exami__5AEE82B9" FromRole="Exams" ToRole="StudentExamApplications" />
+          <NavigationProperty Name="StudentMarks" Relationship="Self.FK__StudentMa__Exami__5FB337D6" FromRole="Exams" ToRole="StudentMarks" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Examid" Type="Int32" />
+          <Property Name="Courseid" Type="Int32" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OptionA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OptionB" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OptionC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OptionD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CorrectOption" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__Questions__Exami__628FA481" FromRole="Questions" ToRole="Exams" />
+          <NavigationProperty Name="StudentAnswers" Relationship="Self.FK__StudentAn__Quest__66603565" FromRole="Questions" ToRole="StudentAnswers" />
+        </EntityType>
+        <EntityType Name="StudentAnswer">
+          <Key>
+            <PropertyRef Name="StudentAnswerId" />
+          </Key>
+          <Property Name="StudentAnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentid" Type="Int32" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="SelectedAnswer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Examid" Type="Int32" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__StudentAn__Exami__6754599E" FromRole="StudentAnswers" ToRole="Exams" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__StudentAn__Quest__66603565" FromRole="StudentAnswers" ToRole="Questions" />
+          <NavigationProperty Name="Studentdetail" Relationship="Self.FK__StudentAn__stude__656C112C" FromRole="StudentAnswers" ToRole="Studentdetails" />
+        </EntityType>
+        <EntityType Name="Studentdetail">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentAnswers" Relationship="Self.FK__StudentAn__stude__656C112C" FromRole="Studentdetails" ToRole="StudentAnswers" />
+          <NavigationProperty Name="StudentExamApplications" Relationship="Self.FK__StudentEx__stude__5BE2A6F2" FromRole="Studentdetails" ToRole="StudentExamApplications" />
+          <NavigationProperty Name="StudentMarks" Relationship="Self.FK__StudentMa__stude__5EBF139D" FromRole="Studentdetails" ToRole="StudentMarks" />
+        </EntityType>
+        <EntityType Name="StudentExamApplication">
+          <Key>
+            <PropertyRef Name="Studentappid" />
+          </Key>
+          <Property Name="Studentappid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Examid" Type="Int32" />
+          <Property Name="studentid" Type="Int32" />
+          <Property Name="applieddate" Type="DateTime" Precision="0" />
+          <Property Name="coursename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__StudentEx__Exami__5AEE82B9" FromRole="StudentExamApplications" ToRole="Exams" />
+          <NavigationProperty Name="Studentdetail" Relationship="Self.FK__StudentEx__stude__5BE2A6F2" FromRole="StudentExamApplications" ToRole="Studentdetails" />
+        </EntityType>
+        <EntityType Name="StudentMark">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentid" Type="Int32" />
+          <Property Name="Examid" Type="Int32" />
+          <Property Name="marks" Type="Int32" />
+          <Property Name="studentname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__StudentMa__Exami__5FB337D6" FromRole="StudentMarks" ToRole="Exams" />
+          <NavigationProperty Name="Studentdetail" Relationship="Self.FK__StudentMa__stude__5EBF139D" FromRole="StudentMarks" ToRole="Studentdetails" />
+        </EntityType>
+        <Association Name="FK__Exams__courseid__4F7CD00D">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="courseid" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Exami__628FA481">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__Exami__6754599E">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentEx__Exami__5AEE82B9">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="StudentExamApplications" Type="Self.StudentExamApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentExamApplications">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentMa__Exami__5FB337D6">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="StudentMarks" Type="Self.StudentMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="Examid" />
+            </Principal>
+            <Dependent Role="StudentMarks">
+              <PropertyRef Name="Examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__Quest__66603565">
+          <End Role="Questions" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAn__stude__656C112C">
+          <End Role="Studentdetails" Type="Self.Studentdetail" Multiplicity="0..1" />
+          <End Role="StudentAnswers" Type="Self.StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentAnswers">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentEx__stude__5BE2A6F2">
+          <End Role="Studentdetails" Type="Self.Studentdetail" Multiplicity="0..1" />
+          <End Role="StudentExamApplications" Type="Self.StudentExamApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentExamApplications">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentMa__stude__5EBF139D">
+          <End Role="Studentdetails" Type="Self.Studentdetail" Multiplicity="0..1" />
+          <End Role="StudentMarks" Type="Self.StudentMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studentdetails">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="StudentMarks">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExammanagefinalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adminlogins" EntityType="Self.Adminlogin" />
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="StudentAnswers" EntityType="Self.StudentAnswer" />
+          <EntitySet Name="Studentdetails" EntityType="Self.Studentdetail" />
+          <EntitySet Name="StudentExamApplications" EntityType="Self.StudentExamApplication" />
+          <EntitySet Name="StudentMarks" EntityType="Self.StudentMark" />
+          <AssociationSet Name="FK__Exams__courseid__4F7CD00D" Association="Self.FK__Exams__courseid__4F7CD00D">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Exami__628FA481" Association="Self.FK__Questions__Exami__628FA481">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__Exami__6754599E" Association="Self.FK__StudentAn__Exami__6754599E">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentEx__Exami__5AEE82B9" Association="Self.FK__StudentEx__Exami__5AEE82B9">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentExamApplications" EntitySet="StudentExamApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentMa__Exami__5FB337D6" Association="Self.FK__StudentMa__Exami__5FB337D6">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="StudentMarks" EntitySet="StudentMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__Quest__66603565" Association="Self.FK__StudentAn__Quest__66603565">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAn__stude__656C112C" Association="Self.FK__StudentAn__stude__656C112C">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentAnswers" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentEx__stude__5BE2A6F2" Association="Self.FK__StudentEx__stude__5BE2A6F2">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentExamApplications" EntitySet="StudentExamApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentMa__stude__5EBF139D" Association="Self.FK__StudentMa__stude__5EBF139D">
+            <End Role="Studentdetails" EntitySet="Studentdetails" />
+            <End Role="StudentMarks" EntitySet="StudentMarks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExammanagefinalModelStoreContainer" CdmEntityContainer="ExammanagefinalEntities">
+          <EntitySetMapping Name="Adminlogins">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.Adminlogin">
+              <MappingFragment StoreEntitySet="Adminlogin">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="coursename" ColumnName="coursename" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.Exam">
+              <MappingFragment StoreEntitySet="Exams">
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="Examdate" ColumnName="Examdate" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+                <ScalarProperty Name="Courseid" ColumnName="Courseid" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="CorrectOption" ColumnName="CorrectOption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAnswers">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.StudentAnswer">
+              <MappingFragment StoreEntitySet="StudentAnswers">
+                <ScalarProperty Name="StudentAnswerId" ColumnName="StudentAnswerId" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="SelectedAnswer" ColumnName="SelectedAnswer" />
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studentdetails">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.Studentdetail">
+              <MappingFragment StoreEntitySet="Studentdetails">
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentExamApplications">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.StudentExamApplication">
+              <MappingFragment StoreEntitySet="StudentExamApplications">
+                <ScalarProperty Name="Studentappid" ColumnName="Studentappid" />
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="applieddate" ColumnName="applieddate" />
+                <ScalarProperty Name="coursename" ColumnName="coursename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentMarks">
+            <EntityTypeMapping TypeName="ExammanagefinalModel.StudentMark">
+              <MappingFragment StoreEntitySet="StudentMarks">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+                <ScalarProperty Name="marks" ColumnName="marks" />
+                <ScalarProperty Name="studentname" ColumnName="studentname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

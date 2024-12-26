@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ExamManagement.Models.Matchedexamcourseviewmodel>
+@{
+    ViewBag.Title = "Apply Exam";
+    Layout = "~/Views/Shared/StudentSidebar.cshtml"; // Include layout if required
+}
+<!-- Internal CSS for Table Styling -->
+<style>
+    /* Styling the table */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
+
+        /* Table header with purple background and white text */
+        .custom-table th {
+            background-color: purple;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Table data cells with padding */
+        .custom-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Alternate row colors */
+        .custom-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hover effect for table rows */
+        .custom-table tr:hover {
+            background-color: #ddd;
+        }
+</style>
+
+<!-- Table HTML -->
+<br />
+<br />
+<br />
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Exam ID</th>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Duration</th>
+            <th>Action</th> <!-- New column for Apply Button -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Examid</td>
+                <td>@item.Courseid</td>
+                <td>@item.Coursename</td>
+                <td>@item.Duration</td>
+                <td>
+                    @using (Html.BeginForm("ApplyForExam", "Applycourse", new { examId = item.Examid, courseId = item.Courseid , Coursename = item.Coursename }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

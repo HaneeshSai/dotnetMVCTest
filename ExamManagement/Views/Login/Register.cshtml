@@ -1,0 +1,131 @@
+﻿@model ExamManagement.Models.Studentdetail
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Form</title>
+
+    @Styles.Render("~/Content/css") <!-- Bootstrap CSS -->
+    <style>
+        body {
+            font-family: Montserrat, Arial, Helvetica, sans-serif;
+            background-image: url("../../Image/6706379_3418448.jpg");
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+        .container {
+            padding: 20px;
+            width: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .form-control {
+            background: #f7f7f7;
+        }
+        button {
+            background-color: #0eb7f4;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+            font-size: 16px;
+            font-family: Montserrat, Arial, Helvetica, sans-serif;
+            border-radius: 10px;
+        }
+        button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="container">
+        <h1>Sign Up</h1>
+        <p>Please fill in this form to create an account.</p>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.fullname, "fullname", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter fullname" } })
+                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            @Html.LabelFor(model => model.username, "Username", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Username" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.email, "Email", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Email" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.password, "Password", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Password", type = "password" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            @Html.LabelFor(model => model.mobile, "mobile", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Mobile", type = "password" } })
+                @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            @Html.LabelFor(model => model.location, "location", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.location, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Location", type = "password" } })
+                @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+
+
+        <div class="clearfix" style="display: flex; justify-content: center; align-items: center;">
+            <button type="submit" class="btn " style="background-color:rebeccapurple;width:20%;color:white">Sign Up</button>
+        </div>
+    </div>
+    }
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
